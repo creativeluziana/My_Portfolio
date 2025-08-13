@@ -25,6 +25,7 @@ function Image({ id, image, title, isLast }) {
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"],
+        layoutEffect: false,
     });
 
     // Smooth parallax for image
