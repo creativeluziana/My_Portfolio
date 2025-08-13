@@ -3,8 +3,6 @@
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import {
     motion,
-    useScroll,
-    useTransform,
     useInView,
 } from "framer-motion";
 import BaysideSportsImg from "../../assets/Projects/Bayside_Sports.png";
@@ -22,13 +20,19 @@ function Image({ id, image, title, isLast }) {
         threshold: 0.3,
     });
 
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"],
-    });
+    const [scrollY, setScrollY] = useState(0);
+    
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollY(window.scrollY);
+        };
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     // Smooth parallax for image
-    const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 20]);
+    const parallaxY = scrollY * 0.05;
 
     useLayoutEffect(() => {
         if (imgRef.current) setImgHeight(imgRef.current.offsetHeight);
@@ -57,15 +61,38 @@ function Image({ id, image, title, isLast }) {
         }
     }, [isInView, title]);
 
-    // Stop y movement earlier so it doesn't overlap footer
-    const y = useTransform(
-        scrollYProgress,
-        [0, 0.9], // stops before bottom
-        [0, Math.max(0, imgHeight - textHeight)]
-    );
+    // Calculate text position based on scroll
+    const getTextY = () => {
+        const rect = containerRef.current?.getBoundingClientRect();
+        if (!rect) return 0;
+        
+        const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+        return scrollProgress * Math.max(0, imgHeight - textHeight);
+    };
 
-    // Opacity fade out near the bottom
-    const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
+    // Calculate opacity based on scroll
+    const getOpacity = () => {
+        const rect = containerRef.current?.getBoundingClientRect();
+        if (!rect) return 1;
+        
+        const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+        if (scrollProgress > 0.8) return 0;
+        if (scrollProgress > 0.6) return 1 - (scrollProgress - 0.6) * 5;
+        return 1;
+    };
+
+    const [y, setY] = useState(0);
+    const [opacity, setOpacity] = useState(1);
+
+    useEffect(() => {
+        const updateParallax = () => {
+            setY(getTextY());
+            setOpacity(getOpacity());
+        };
+
+        window.addEventListener('scroll', updateParallax, { passive: true });
+        return () => window.removeEventListener('scroll', updateParallax);
+    }, [imgHeight, textHeight]);
 
     return (
         <section
