@@ -30,6 +30,16 @@ function Image({ id, image, title, isLast }) {
     // Smooth parallax for image
     const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 20]);
 
+    // Stop y movement earlier so it doesn't overlap footer
+    const y = useTransform(
+        scrollYProgress,
+        [0, 0.9], // stops before bottom
+        [0, Math.max(0, imgHeight - textHeight)]
+    );
+
+    // Opacity fade out near the bottom
+    const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
+
     useLayoutEffect(() => {
         if (imgRef.current) setImgHeight(imgRef.current.offsetHeight);
         if (textRef.current) setTextHeight(textRef.current.offsetHeight);
@@ -57,16 +67,6 @@ function Image({ id, image, title, isLast }) {
         }
     }, [isInView, title]);
 
-    // Stop y movement earlier so it doesn't overlap footer
-    const y = useTransform(
-        scrollYProgress,
-        [0, 0.9], // stops before bottom
-        [0, Math.max(0, imgHeight - textHeight)]
-    );
-
-    // Opacity fade out near the bottom
-    const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
-
     return (
         <section
             className="img-container"
@@ -92,8 +92,8 @@ function Image({ id, image, title, isLast }) {
                 <motion.h2
                     ref={textRef}
                     style={{
-                        y,
-                        opacity,
+                        y: y || 0,
+                        opacity: opacity || 1,
                         background:
                             "linear-gradient(90deg, #FFFFFF 0%, #D770D7 100%)",
                         WebkitBackgroundClip: "text",
