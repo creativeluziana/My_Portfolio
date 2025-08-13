@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import {
     motion,
+    useScroll,
+    useTransform,
     useInView,
 } from "framer-motion";
 import BaysideSportsImg from "../../assets/Projects/Bayside_Sports.png";
@@ -11,43 +13,26 @@ function Image({ id, image, title, isLast }) {
     const containerRef = useRef(null);
     const imgRef = useRef(null);
     const textRef = useRef(null);
+    const [imgHeight, setImgHeight] = useState(0);
+    const [textHeight, setTextHeight] = useState(0);
     const [displayedText, setDisplayedText] = useState("");
     const [isTyping, setIsTyping] = useState(false);
-    const [parallaxY, setParallaxY] = useState(0);
-    const [textY, setTextY] = useState(0);
-    const [textOpacity, setTextOpacity] = useState(1);
 
     const isInView = useInView(containerRef, {
         threshold: 0.3,
     });
 
-    // Scroll-triggered parallax effect
-    useEffect(() => {
-        const handleScroll = () => {
-            if (containerRef.current) {
-                const rect = containerRef.current.getBoundingClientRect();
-                const viewportHeight = window.innerHeight;
-                const elementTop = rect.top;
-                const elementHeight = rect.height;
-                
-                // Calculate how much the element has scrolled into view
-                const scrollDistance = viewportHeight - elementTop;
-                const maxScrollDistance = viewportHeight + elementHeight;
-                
-                // Normalize scroll progress (0 to 1)
-                const scrollProgress = Math.max(0, Math.min(1, scrollDistance / maxScrollDistance));
-                
-                // Image parallax (moves up slightly)
-                setParallaxY(scrollProgress * -30);
-                
-                // Text parallax (moves down more dramatically)
-                setTextY(scrollProgress * 100);
-                setTextOpacity(Math.max(0, 1 - scrollProgress * 2));
-            }
-        };
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"],
+    });
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+    // Smooth parallax for image
+    const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 20]);
+
+    useLayoutEffect(() => {
+        if (imgRef.current) setImgHeight(imgRef.current.offsetHeight);
+        if (textRef.current) setTextHeight(textRef.current.offsetHeight);
     }, []);
 
     // Typing animation effect
@@ -72,6 +57,16 @@ function Image({ id, image, title, isLast }) {
         }
     }, [isInView, title]);
 
+    // Stop y movement earlier so it doesn't overlap footer
+    const y = useTransform(
+        scrollYProgress,
+        [0, 0.9], // stops before bottom
+        [0, Math.max(0, imgHeight - textHeight)]
+    );
+
+    // Opacity fade out near the bottom
+    const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
+
     return (
         <section
             className="img-container"
@@ -91,12 +86,14 @@ function Image({ id, image, title, isLast }) {
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
                     viewport={{ once: true, amount: 0.3 }}
-                    style={{ transform: `translateY(${parallaxY}px)` }}
-                    className="w-full h-auto will-change-transform parallax-image"
+                    style={{ y: parallaxY }}
+                    className="w-full h-auto will-change-transform"
                 />
                 <motion.h2
                     ref={textRef}
                     style={{
+                        y,
+                        opacity,
                         background:
                             "linear-gradient(90deg, #FFFFFF 0%, #D770D7 100%)",
                         WebkitBackgroundClip: "text",
@@ -104,10 +101,9 @@ function Image({ id, image, title, isLast }) {
                         backgroundClip: "text",
                         color: "transparent",
                         willChange: "transform",
-                        transform: `translateY(${textY}px)`,
-                        opacity: textOpacity,
+                        transition: "transform 0.4s ease-out",
                     }}
-                    className="text-6xl lg:text-8xl font-medium absolute left-0 translate-x-0 drop-shadow-lg overlay-title whitespace-nowrap z-0 pointer-events-none parallax-text"
+                    className="text-6xl lg:text-8xl font-medium absolute left-0 translate-x-0 drop-shadow-lg overlay-title whitespace-nowrap z-0 pointer-events-none"
                 >
                     {displayedText}
                     {isTyping && displayedText.length < title.length && (
@@ -199,18 +195,6 @@ function StyleSheet() {
             width: 800px;
             height: auto;
         }
-        
-        /* CSS-based parallax effects */
-        .parallax-image {
-            transform: translateY(0);
-            transition: transform 0.1s ease-out;
-        }
-        
-        .parallax-text {
-            transform: translateY(0);
-            transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-        }
-        
         @media (max-width: 768px) {
             .img-container > div {
                 width: 90%;
