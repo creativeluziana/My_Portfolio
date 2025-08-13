@@ -26,14 +26,23 @@ function Image({ id, image, title, isLast }) {
         const handleScroll = () => {
             if (containerRef.current) {
                 const rect = containerRef.current.getBoundingClientRect();
-                const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+                const viewportHeight = window.innerHeight;
+                const elementTop = rect.top;
+                const elementHeight = rect.height;
+                
+                // Calculate how much the element has scrolled into view
+                const scrollDistance = viewportHeight - elementTop;
+                const maxScrollDistance = viewportHeight + elementHeight;
+                
+                // Normalize scroll progress (0 to 1)
+                const scrollProgress = Math.max(0, Math.min(1, scrollDistance / maxScrollDistance));
                 
                 // Image parallax (moves up slightly)
-                setParallaxY(scrollProgress * -20);
+                setParallaxY(scrollProgress * -30);
                 
-                // Text parallax (moves down and fades out)
-                setTextY(scrollProgress * 50);
-                setTextOpacity(Math.max(0, 1 - scrollProgress * 1.5));
+                // Text parallax (moves down more dramatically)
+                setTextY(scrollProgress * 100);
+                setTextOpacity(Math.max(0, 1 - scrollProgress * 2));
             }
         };
 
