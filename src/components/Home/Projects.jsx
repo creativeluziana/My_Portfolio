@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
     motion,
     useInView,
@@ -11,33 +11,12 @@ function Image({ id, image, title, isLast }) {
     const containerRef = useRef(null);
     const imgRef = useRef(null);
     const textRef = useRef(null);
-    const [imgHeight, setImgHeight] = useState(0);
-    const [textHeight, setTextHeight] = useState(0);
     const [displayedText, setDisplayedText] = useState("");
     const [isTyping, setIsTyping] = useState(false);
 
     const isInView = useInView(containerRef, {
         threshold: 0.3,
     });
-
-    const [scrollY, setScrollY] = useState(0);
-    
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrollY(window.scrollY);
-        };
-        
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // Smooth parallax for image
-    const parallaxY = scrollY * 0.05;
-
-    useLayoutEffect(() => {
-        if (imgRef.current) setImgHeight(imgRef.current.offsetHeight);
-        if (textRef.current) setTextHeight(textRef.current.offsetHeight);
-    }, []);
 
     // Typing animation effect
     useEffect(() => {
@@ -61,39 +40,6 @@ function Image({ id, image, title, isLast }) {
         }
     }, [isInView, title]);
 
-    // Calculate text position based on scroll
-    const getTextY = () => {
-        const rect = containerRef.current?.getBoundingClientRect();
-        if (!rect) return 0;
-        
-        const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
-        return scrollProgress * Math.max(0, imgHeight - textHeight);
-    };
-
-    // Calculate opacity based on scroll
-    const getOpacity = () => {
-        const rect = containerRef.current?.getBoundingClientRect();
-        if (!rect) return 1;
-        
-        const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
-        if (scrollProgress > 0.8) return 0;
-        if (scrollProgress > 0.6) return 1 - (scrollProgress - 0.6) * 5;
-        return 1;
-    };
-
-    const [y, setY] = useState(0);
-    const [opacity, setOpacity] = useState(1);
-
-    useEffect(() => {
-        const updateParallax = () => {
-            setY(getTextY());
-            setOpacity(getOpacity());
-        };
-
-        window.addEventListener('scroll', updateParallax, { passive: true });
-        return () => window.removeEventListener('scroll', updateParallax);
-    }, [imgHeight, textHeight]);
-
     return (
         <section
             className="img-container"
@@ -113,14 +59,11 @@ function Image({ id, image, title, isLast }) {
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
                     viewport={{ once: true, amount: 0.3 }}
-                    style={{ y: parallaxY }}
-                    className="w-full h-auto will-change-transform"
+                    className="w-full h-auto will-change-transform parallax-image"
                 />
                 <motion.h2
                     ref={textRef}
                     style={{
-                        y,
-                        opacity,
                         background:
                             "linear-gradient(90deg, #FFFFFF 0%, #D770D7 100%)",
                         WebkitBackgroundClip: "text",
@@ -128,9 +71,8 @@ function Image({ id, image, title, isLast }) {
                         backgroundClip: "text",
                         color: "transparent",
                         willChange: "transform",
-                        transition: "transform 0.4s ease-out",
                     }}
-                    className="text-6xl lg:text-8xl font-medium absolute left-0 translate-x-0 drop-shadow-lg overlay-title whitespace-nowrap z-0 pointer-events-none"
+                    className="text-6xl lg:text-8xl font-medium absolute left-0 translate-x-0 drop-shadow-lg overlay-title whitespace-nowrap z-0 pointer-events-none parallax-text"
                 >
                     {displayedText}
                     {isTyping && displayedText.length < title.length && (
@@ -222,6 +164,41 @@ function StyleSheet() {
             width: 800px;
             height: auto;
         }
+        
+        /* CSS-based parallax effects */
+        .parallax-image {
+            transform: translateY(0);
+            transition: transform 0.1s ease-out;
+        }
+        
+        .parallax-text {
+            transform: translateY(0);
+            transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+        }
+        
+        /* Apply parallax on scroll using CSS */
+        @media (prefers-reduced-motion: no-preference) {
+            .parallax-image {
+                animation: parallaxScroll 20s linear infinite;
+            }
+            
+            .parallax-text {
+                animation: textParallax 20s linear infinite;
+            }
+        }
+        
+        @keyframes parallaxScroll {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        
+        @keyframes textParallax {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(30px); opacity: 0.8; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
         @media (max-width: 768px) {
             .img-container > div {
                 width: 90%;
