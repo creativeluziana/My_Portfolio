@@ -13,10 +13,33 @@ function Image({ id, image, title, isLast }) {
     const textRef = useRef(null);
     const [displayedText, setDisplayedText] = useState("");
     const [isTyping, setIsTyping] = useState(false);
+    const [parallaxY, setParallaxY] = useState(0);
+    const [textY, setTextY] = useState(0);
+    const [textOpacity, setTextOpacity] = useState(1);
 
     const isInView = useInView(containerRef, {
         threshold: 0.3,
     });
+
+    // Scroll-triggered parallax effect
+    useEffect(() => {
+        const handleScroll = () => {
+            if (containerRef.current) {
+                const rect = containerRef.current.getBoundingClientRect();
+                const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+                
+                // Image parallax (moves up slightly)
+                setParallaxY(scrollProgress * -20);
+                
+                // Text parallax (moves down and fades out)
+                setTextY(scrollProgress * 50);
+                setTextOpacity(Math.max(0, 1 - scrollProgress * 1.5));
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     // Typing animation effect
     useEffect(() => {
@@ -59,6 +82,7 @@ function Image({ id, image, title, isLast }) {
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
                     viewport={{ once: true, amount: 0.3 }}
+                    style={{ transform: `translateY(${parallaxY}px)` }}
                     className="w-full h-auto will-change-transform parallax-image"
                 />
                 <motion.h2
@@ -71,6 +95,8 @@ function Image({ id, image, title, isLast }) {
                         backgroundClip: "text",
                         color: "transparent",
                         willChange: "transform",
+                        transform: `translateY(${textY}px)`,
+                        opacity: textOpacity,
                     }}
                     className="text-6xl lg:text-8xl font-medium absolute left-0 translate-x-0 drop-shadow-lg overlay-title whitespace-nowrap z-0 pointer-events-none parallax-text"
                 >
@@ -174,29 +200,6 @@ function StyleSheet() {
         .parallax-text {
             transform: translateY(0);
             transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-        }
-        
-        /* Apply parallax on scroll using CSS */
-        @media (prefers-reduced-motion: no-preference) {
-            .parallax-image {
-                animation: parallaxScroll 20s linear infinite;
-            }
-            
-            .parallax-text {
-                animation: textParallax 20s linear infinite;
-            }
-        }
-        
-        @keyframes parallaxScroll {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
-        
-        @keyframes textParallax {
-            0% { transform: translateY(0); opacity: 1; }
-            50% { transform: translateY(30px); opacity: 0.8; }
-            100% { transform: translateY(0); opacity: 1; }
         }
         
         @media (max-width: 768px) {
