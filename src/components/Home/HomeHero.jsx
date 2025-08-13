@@ -113,7 +113,7 @@ const HomeHero = () => {
         <div className="flex-1 text-white z-10 text-center lg:text-left lg:pr-8">
           {/* Desktop/Large screens: keep animated headline */}
           <div className="hidden lg:block mb-8">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-cursive text-white mb-4 drop-shadow-2xl">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-cursive text-white mb-4 drop-shadow-2xl whitespace-nowrap">
               Luziana Dmello
             </h1>
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-6xl text-white mb-8 drop-shadow-lg">
@@ -122,7 +122,7 @@ const HomeHero = () => {
             </p>
           </div>
 
-          <div className="w-full flex flex-row items-start justify-center gap-6 lg:gap-12 px-2">
+          <div className="w-full flex flex-row items-start justify-start gap-6 lg:gap-12 px-2">
             <div className="relative flex items-end pl-2 lg:flex-row-reverse">
               <div className="flex flex-col justify-end h-20 sm:h-24 md:h-28 lg:h-40 max-[400px]:h-[220px] mr-3 lg:mr-0 lg:ml-3">
                 <div className="flex flex-col space-y-1 text-right lg:text-left">
