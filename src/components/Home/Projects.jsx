@@ -26,7 +26,8 @@ function Image({ id, image, title, isLast, slug }) {
     const [isTyping, setIsTyping] = useState(false);
 
     const isInView = useInView(containerRef, {
-        threshold: 0.3,
+        threshold: 0.25,
+        margin: '0px 0px -10% 0px',
     });
 
     const { scrollYProgress } = useScroll({
@@ -49,8 +50,13 @@ function Image({ id, image, title, isLast, slug }) {
     const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
 
     useLayoutEffect(() => {
-        if (imgRef.current) setImgHeight(imgRef.current.offsetHeight);
-        if (textRef.current) setTextHeight(textRef.current.offsetHeight);
+        const recalcHeights = () => {
+            if (imgRef.current) setImgHeight(imgRef.current.offsetHeight || 0);
+            if (textRef.current) setTextHeight(textRef.current.offsetHeight || 0);
+        };
+        recalcHeights();
+        window.addEventListener('resize', recalcHeights);
+        return () => window.removeEventListener('resize', recalcHeights);
     }, []);
 
     // Typing animation effect
@@ -85,20 +91,22 @@ function Image({ id, image, title, isLast, slug }) {
                 position: "relative", // required for framer-motion scroll measurements
             }}
         >
-            <div style={{ position: "relative" }} data-cursor-label="View project">
+            <div style={{ position: "relative" }} data-cursor-label="View project" className="z-10">
                 <motion.img
                     ref={imgRef}
                     src={image}
                     alt={`${title} Project`}
-                    initial={{ opacity: 0, y: 150, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    style={{ y: parallaxY, position: 'relative', zIndex: 10 }}
+                    initial={{ opacity: 0, y: 120, scale: 0.96 }}
+                    animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 120, scale: isInView ? 1 : 0.96 }}
+                    transition={{ duration: 0.9, ease: "easeOut" }}
+                    style={{ y: parallaxY, position: 'relative', zIndex: 0 }}
                     className="w-full h-auto will-change-transform block"
                     loading="eager"
+                    onLoad={() => {
+                        if (imgRef.current) setImgHeight(imgRef.current.offsetHeight || 0);
+                        if (textRef.current) setTextHeight(textRef.current.offsetHeight || 0);
+                    }}
                     onError={(e) => {
-                        // Retry once in case of transient dev server glitch
                         const img = e.currentTarget;
                         if (!img.dataset.retried) {
                             img.dataset.retried = '1';
@@ -120,7 +128,7 @@ function Image({ id, image, title, isLast, slug }) {
                         willChange: "transform",
                         transition: "transform 0.4s ease-out",
                     }}
-                    className="text-6xl lg:text-8xl font-medium absolute left-0 translate-x-0 drop-shadow-lg overlay-title whitespace-nowrap z-0 pointer-events-none"
+                    className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-medium absolute left-0 translate-x-0 drop-shadow-lg overlay-title whitespace-nowrap z-20 pointer-events-none"
                 >
                     {displayedText}
                     {isTyping && displayedText.length < title.length && (
@@ -135,10 +143,12 @@ function Image({ id, image, title, isLast, slug }) {
 
 const Projects = () => {
     const projects = [
+        // Required order
         { id: 1, image: BaysideSportsImg, title: "Bayside Sports", slug: "projects/tech/bayside-sports" },
         { id: 2, image: FluxuriousTechImg, title: "Fluxurous Tech", slug: "projects/tech/fluxurous-tech" },
-        { id: 3, image: RAEImg, title: "Research Assistant", slug: "projects/tech/rae" },
-        { id: 4, image: BaysideSportsImg, title: "Studex", slug: "projects/tech/studex" },
+        { id: 3, image: BaysideSportsImg, title: "Studex", slug: "projects/tech/studex" },
+        { id: 4, image: RAEImg, title: "Research Assistant", slug: "projects/tech/rae" },
+        // The rest
         { id: 5, image: AarohanImg, title: "Aarohan", slug: "projects/tech/aarohan" },
         { id: 6, image: JobsifyImg, title: "Jobsify", slug: "projects/tech/jobsify" },
         { id: 7, image: FaceTransformImg, title: "Face Transform", slug: "projects/tech/face-transform" },
@@ -148,7 +158,7 @@ const Projects = () => {
     return (
         <div id="example" className="bg-black relative mb-0">
             {/* Vertical Lines Background Pattern */}
-            <div className="absolute inset-0 opacity-40 pointer-events-none -z-10">
+            <div className="absolute inset-0 opacity-40 pointer-events-none -z-10" style={{ position: 'absolute' }}>
                 <div
                     className="h-full w-full"
                     style={{
@@ -220,27 +230,23 @@ function StyleSheet() {
         }
         @media (max-width: 768px) {
             .img-container > div {
-                width: 90%;
-                max-width: 350px;
+                width: calc(100% - 24px);
+                max-width: 360px;
             }
             .img-container img {
                 width: 100%;
                 height: auto;
             }
+            .overlay-title { left: -80px; }
         }
-        .overlay-title {
-            top: 0;
-            left: -150px;
-            text-align: left;
-            pointer-events: none;
+        .overlay-title { top: 0; left: -150px; text-align: left; pointer-events: none; }
+        @media (max-width: 375px) {
+            .img-container > div { max-width: 340px; }
+            .overlay-title { left: 0; }
         }
-        @media (max-width: 500px) {
-            .img-container > div {
-                width: 350px;
-            }
-            .img-container img {
-                width: 350px;
-            }
+        @media (max-width: 340px) {
+            .img-container > div { max-width: 300px; }
+            .overlay-title { left: 0; }
         }
     `}</style>
     );

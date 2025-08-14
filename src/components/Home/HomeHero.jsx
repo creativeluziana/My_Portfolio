@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import HeroBgImg from '../../assets/HeroBgImg.png';
 import LuziAnime from '../../assets/Luzi_Anime.png';
+// Removed temporary featured projects ribbon and related imports
 
 const HomeHero = () => {
   const [currentText, setCurrentText] = useState('');
@@ -162,6 +163,8 @@ const HomeHero = () => {
           />
         </div>
       </div>
+
+      {/* End hero content */}
     </section>
   );
 };
