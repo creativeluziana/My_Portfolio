@@ -2,13 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import ProjectLayout from "../../../components/projects/ProjectLayout";
 
 // Hero carousel images
-import Bayside1 from "../../../assets/Bayside_Sports/Bayside1.png";
-import Bayside2 from "../../../assets/Bayside_Sports/Bayside2.png";
-import Bayside3 from "../../../assets/Bayside_Sports/Bayside3.png";
-import Bayside4 from "../../../assets/Bayside_Sports/Bayside4.png";
-import Bayside5 from "../../../assets/Bayside_Sports/Bayside5.png";
-import Bayside6 from "../../../assets/Bayside_Sports/Bayside6.png";
-import ApproachImg from "../../../assets/Bayside_Sports/Approach.png";
+import Bayside1 from "../../../assets/1Bayside_Sports/Bayside1.png";
+import Bayside2 from "../../../assets/1Bayside_Sports/Bayside2.png";
+import Bayside3 from "../../../assets/1Bayside_Sports/Bayside3.png";
+import Bayside4 from "../../../assets/1Bayside_Sports/Bayside4.png";
+import Bayside5 from "../../../assets/1Bayside_Sports/Bayside5.png";
+import Bayside6 from "../../../assets/1Bayside_Sports/Bayside6.png";
+import ApproachImg from "../../../assets/1Bayside_Sports/Approach.png";
 import ResultsImg from "../../../assets/Projects/Bayside_Sports.png";
 import { Link } from "react-router-dom";
 import Footer from "../../../components/Footer";
@@ -28,14 +28,12 @@ const BaysideSports = () => {
   const visitUrl = "https://bayside-frontend-new-1.vercel.app/"; // Update with live link if available
 
   const tech = [
-    { icon: "/Logos/js.png", label: "NEXT JS" },
-    { icon: "/Logos/react.png", label: "REACT" },
-    { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", label: "PYTHON" },
-    { icon: "/Logos/java.png", label: "JAVA" },
-    { icon: "/Logos/js.png", label: "VITE" },
-    { icon: "/Logos/react.png", label: "REACT" },
-    { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", label: "PYTHON" },
-    { icon: "/Logos/java.png", label: "JAVA" },
+    { icon: "/Logos/figma.png", label: "Figma" },
+    { icon: "/Logos/react.png", label: "React" },
+    { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", label: "Tailwind" },
+    { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", label: "Node" },
+    { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", label: "Express" },
+    { icon: "/Logos/js.png", label: "JavaScript" },
   ];
   // --------------------------------
 
@@ -218,11 +216,21 @@ const BaysideSports = () => {
             ))}
           </div>
 
-          <p className="mt-4 max-w-3xl text-xl lg:text-2xl leading-relaxed text-gray-300" style={{ lineHeight: '1.6', wordSpacing: '0.05em', letterSpacing: '0.01em' }}>
-            Develop a visually stunning and interactive website for DZINR to showcase their
-            portfolio, clearly outline their services, and facilitate client inquiries through an
-            intuitive contact form.
+          <p className="mt-4 max-w-3xl text-xl lg:text-2xl leading-relaxed text-gray-300">
+            <strong>Sports event & services booking platform.</strong> Built to automate corporate/club event
+            management, service selection, and approvals.
           </p>
+          <ul className="mt-4 list-disc pl-6 text-gray-300 space-y-2 max-w-3xl">
+            <li>Users browse services with clear briefs, view availability, and initiate bookings.</li>
+            <li>
+              <strong>Packages/Bulk services:</strong> request → admin approval → call scheduled → quotation workflow.
+            </li>
+            <li>
+              <strong>Individual services:</strong> direct checkout via integrated payment gateway; auto ticket/receipt
+              to user & admin.
+            </li>
+            <li>Admin gets booking tickets, can approve/decline, schedule calls, and track payments & status.</li>
+          </ul>
         </section>
 
         {/* Tech Stack */}

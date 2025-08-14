@@ -3,33 +3,35 @@ import { motion, useScroll, useSpring, useTransform, useMotionValue, useVelocity
 import { wrap } from '@motionone/utils';
 
 const technologies = [
-  // Row 1
-  { name: 'NEXT JS', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
+  // ROW 1
+  { name: 'HTML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg' },
+  { name: 'CSS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg' },
+  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
+  { name: 'FRAMER', logo: '/Logos/Framer.png', color: 'bg-transparent', originalIcon: '/Logos/Framer.png' },
+  { name: 'WEBFLOW', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webflow/webflow-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webflow/webflow-original.svg' },
+  { name: 'SPLINE', logo: '/Logos/Spline.png', color: 'bg-transparent', originalIcon: '/Logos/Spline.png' },
+  { name: 'CANVA', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg' },
+  // ROW 2
+  { name: 'JAVASCRIPT', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
+  { name: 'TAILWIND', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'NEXTJS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
   { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
+  { name: 'FLUTTER', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg' },
+  { name: 'NODE', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'EXPRESS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', forceWhite: true },
+  // ROW 3
   { name: 'PYTHON', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
   { name: 'JAVA', logo: '/Logos/java.png', color: 'bg-transparent', originalIcon: '/Logos/java.png' },
-  { name: 'VITE', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
-  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
-  { name: 'PYTHON', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-  // Row 2
-  { name: 'JAVA', logo: '/Logos/java.png', color: 'bg-transparent', originalIcon: '/Logos/java.png' },
-  { name: 'NEXT JS', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
-  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
-  { name: 'PYTHON', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-  { name: 'JAVA', logo: '/Logos/java.png', color: 'bg-transparent', originalIcon: '/Logos/java.png' },
-  { name: 'VITE', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
-  // Row 3
-  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
-  { name: 'PYTHON', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-  { name: 'JAVA', logo: '/Logos/java.png', color: 'bg-transparent', originalIcon: '/Logos/java.png' },
-  { name: 'NEXT JS', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
-  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
-  { name: 'VITE', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' }
+  { name: 'MONGO DB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+  { name: 'SQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+  { name: 'POSTGRESQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+  { name: 'FLASK', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg', forceWhite: true },
+  { name: 'TYPESCRIPT', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' }
 ];
 
 const row1 = technologies.slice(0, 7);
-const row2 = technologies.slice(7, 13);
-const row3 = technologies.slice(13, 19);
+const row2 = technologies.slice(7, 14);
+const row3 = technologies.slice(14, 21);
 
 function ParallaxRow({ cards, baseVelocity }) {
   // Detect mobile screen
@@ -73,8 +75,8 @@ function ParallaxRow({ cards, baseVelocity }) {
             <div className="w-14 h-14 rounded-lg flex items-center justify-center">
               <img
                 src={tech.originalIcon}
-                alt="Figma Logo"
-                className="w-12 h-12 object-contain"
+                alt={tech.name}
+                className={`w-12 h-12 object-contain ${tech.forceWhite ? 'invert' : ''}`}
               />
             </div>
             <span

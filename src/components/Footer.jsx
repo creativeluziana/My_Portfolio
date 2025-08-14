@@ -32,11 +32,11 @@ export default function Footer() {
 
       {/* Social links */}
       <div className="flex flex-wrap gap-8 mt-4 text-sm font-light text-white">
-        <a href="#" className="hover:underline">Email</a>
-        <a href="#" className="hover:underline">LinkedIn</a>
-        <a href="#" className="hover:underline">Github</a>
-        <a href="#" className="hover:underline">Behance</a>
-        <a href="#" className="hover:underline">Dribble</a>
+        <a href="luzian.vellen@gmail.com" className="hover:underline">Email</a>
+        <a href="https://www.linkedin.com/in/luziana-d-mello-262bb6307/" className="hover:underline">LinkedIn</a>
+        <a href="https://github.com/creativeluziana" className="hover:underline">Github</a>
+        <a href="https://www.behance.net/luzianadmello" className="hover:underline">Behance</a>
+        <a href="https://dribbble.com/luzianadmello" className="hover:underline">Dribble</a>
       </div>
     </footer>
   );

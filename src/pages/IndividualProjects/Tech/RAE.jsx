@@ -1,20 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProjectLayout from '../../../components/projects/ProjectLayout';
-import ProjectImage from '../../../assets/Projects/RAE.png';
-import ApproachImg from '../../../assets/Projects/RAE.png';
+import ProjectImage from '../../../assets/4RAE/RAE1.png';
+import ApproachImg from '../../../assets/4RAE/RAE1.png';
+import RAE2 from '../../../assets/4RAE/RAE2.png';
+import RAE3 from '../../../assets/4RAE/RAE3.png';
+import RAE4 from '../../../assets/4RAE/RAE4.png';
+import RAE5 from '../../../assets/4RAE/RAE5.png';
+import RAE6 from '../../../assets/4RAE/RAE6.png';
 import ResultsImg from '../../../assets/Projects/RAE.png';
 import { Link } from 'react-router-dom';
 import Footer from '../../../components/Footer';
 
 const RAE = () => {
-  const images = Array(6).fill({ src: ProjectImage, alt: 'Research Assistant & Enhancer' });
+  const images = [
+    { src: ProjectImage, alt: 'Research Assistant 1' },
+    { src: RAE2, alt: 'Research Assistant 2' },
+    { src: RAE3, alt: 'Research Assistant 3' },
+    { src: RAE4, alt: 'Research Assistant 4' },
+    { src: RAE5, alt: 'Research Assistant 5' },
+    { src: RAE6, alt: 'Research Assistant 6' },
+  ];
   const tags = ['Web Design', 'Web Development'];
   const visitUrl = 'https://example.com';
   const tech = [
-    { icon: '/Logos/js.png', label: 'NEXT JS' },
-    { icon: '/Logos/react.png', label: 'REACT' },
-    { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', label: 'PYTHON' },
-    { icon: '/Logos/java.png', label: 'JAVA' },
+    { icon: '/Logos/figma.png', label: 'Figma' },
+    { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', label: 'TypeScript' },
+    { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', label: 'Python' },
+    { icon: '/Logos/gemini.png', label: 'Gemini' },
   ];
 
   const [position, setPosition] = useState(1);
@@ -67,7 +79,15 @@ const RAE = () => {
 
         <section className="mx-auto mt-3 max-w-5xl">
           <div className="flex flex-wrap gap-3">{tags.map((t) => (<span key={t} className="rounded-full border border-white/25 px-4 py-2 text-sm text-white/90">{t}</span>))}</div>
-          <p className="mt-4 max-w-3xl text-xl lg:text-2xl leading-relaxed text-gray-300" style={{ lineHeight: '1.6', wordSpacing: '0.05em', letterSpacing: '0.01em' }}>Case study content coming soon.</p>
+          <p className="mt-4 max-w-3xl text-xl lg:text-2xl leading-relaxed text-gray-300">
+            <strong>RAE</strong> — a compact, AI-assisted web product for research → action.
+          </p>
+          <ul className="mt-4 list-disc pl-6 text-gray-300 space-y-2 max-w-3xl">
+            <li>Centralizes brief, research notes, and generated insights in one place.</li>
+            <li>Prompted workflows to turn findings into copy, tasks, or deliverables.</li>
+            <li>Lightweight dashboard, shareable outputs, and export options.</li>
+            <li>Built to be fast, opinionated, and easy for non-technical users.</li>
+          </ul>
         </section>
 
         <section className="mx-auto mt-8 max-w-5xl">

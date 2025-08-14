@@ -15,6 +15,7 @@ import JobsifyImg from "../../assets/Projects/Jobsify.png";
 import FaceTransformImg from "../../assets/Projects/FaceTransform.png";
 import B4USchoolsImg from "../../assets/Projects/B4USchools.png";
 import AarohanImg from "../../assets/Projects/Aarohan.png";
+import StudexImg from "../../assets/Projects/Studex.png";
 
 function Image({ id, image, title, isLast, slug }) {
     const containerRef = useRef(null);
@@ -146,7 +147,7 @@ const Projects = () => {
         // Required order
         { id: 1, image: BaysideSportsImg, title: "Bayside Sports", slug: "projects/tech/bayside-sports" },
         { id: 2, image: FluxuriousTechImg, title: "Fluxurous Tech", slug: "projects/tech/fluxurous-tech" },
-        { id: 3, image: BaysideSportsImg, title: "Studex", slug: "projects/tech/studex" },
+        { id: 3, image: StudexImg, title: "Studex", slug: "projects/tech/studex" },
         { id: 4, image: RAEImg, title: "Research Assistant", slug: "projects/tech/rae" },
         // The rest
         { id: 5, image: AarohanImg, title: "Aarohan", slug: "projects/tech/aarohan" },
