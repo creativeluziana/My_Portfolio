@@ -4,27 +4,27 @@ import { wrap } from '@motionone/utils';
 
 const technologies = [
   // Row 1
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
+  { name: 'NEXT JS', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
+  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
+  { name: 'PYTHON', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'JAVA', logo: '/Logos/java.png', color: 'bg-transparent', originalIcon: '/Logos/java.png' },
+  { name: 'VITE', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
+  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
+  { name: 'PYTHON', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
   // Row 2
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
+  { name: 'JAVA', logo: '/Logos/java.png', color: 'bg-transparent', originalIcon: '/Logos/java.png' },
+  { name: 'NEXT JS', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
+  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
+  { name: 'PYTHON', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'JAVA', logo: '/Logos/java.png', color: 'bg-transparent', originalIcon: '/Logos/java.png' },
+  { name: 'VITE', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
   // Row 3
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' },
-  { name: 'FIGMA', logo: '/Logos/figma.png', color: 'bg-transparent', originalIcon: '/Logos/figma.png' }
+  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
+  { name: 'PYTHON', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', color: 'bg-transparent', originalIcon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'JAVA', logo: '/Logos/java.png', color: 'bg-transparent', originalIcon: '/Logos/java.png' },
+  { name: 'NEXT JS', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' },
+  { name: 'REACT', logo: '/Logos/react.png', color: 'bg-transparent', originalIcon: '/Logos/react.png' },
+  { name: 'VITE', logo: '/Logos/js.png', color: 'bg-transparent', originalIcon: '/Logos/js.png' }
 ];
 
 const row1 = technologies.slice(0, 7);

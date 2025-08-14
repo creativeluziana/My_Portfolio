@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
     motion,
     useScroll,
@@ -8,8 +9,14 @@ import {
     useInView,
 } from "framer-motion";
 import BaysideSportsImg from "../../assets/Projects/Bayside_Sports.png";
+import FluxuriousTechImg from "../../assets/Projects/Fluxurious_Tech.png";
+import RAEImg from "../../assets/Projects/RAE.png";
+import JobsifyImg from "../../assets/Projects/Jobsify.png";
+import FaceTransformImg from "../../assets/Projects/FaceTransform.png";
+import B4USchoolsImg from "../../assets/Projects/B4USchools.png";
+import AarohanImg from "../../assets/Projects/Aarohan.png";
 
-function Image({ id, image, title, isLast }) {
+function Image({ id, image, title, isLast, slug }) {
     const containerRef = useRef(null);
     const imgRef = useRef(null);
     const textRef = useRef(null);
@@ -78,7 +85,7 @@ function Image({ id, image, title, isLast }) {
                 position: "relative", // required for framer-motion scroll measurements
             }}
         >
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative" }} data-cursor-label="View project">
                 <motion.img
                     ref={imgRef}
                     src={image}
@@ -87,8 +94,17 @@ function Image({ id, image, title, isLast }) {
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
                     viewport={{ once: true, amount: 0.3 }}
-                    style={{ y: parallaxY }}
-                    className="w-full h-auto will-change-transform"
+                    style={{ y: parallaxY, position: 'relative', zIndex: 10 }}
+                    className="w-full h-auto will-change-transform block"
+                    loading="eager"
+                    onError={(e) => {
+                        // Retry once in case of transient dev server glitch
+                        const img = e.currentTarget;
+                        if (!img.dataset.retried) {
+                            img.dataset.retried = '1';
+                            img.src = image;
+                        }
+                    }}
                 />
                 <motion.h2
                     ref={textRef}
@@ -111,6 +127,7 @@ function Image({ id, image, title, isLast }) {
                         <span className="animate-pulse">|</span>
                     )}
                 </motion.h2>
+                <Link to={`/${slug}`} className="absolute inset-0" aria-label={`Open ${title}`} />
             </div>
         </section>
     );
@@ -118,16 +135,20 @@ function Image({ id, image, title, isLast }) {
 
 const Projects = () => {
     const projects = [
-        { id: 1, image: BaysideSportsImg, title: "Bayside Sports" },
-        { id: 2, image: BaysideSportsImg, title: "Fluxurous Tech" },
-        { id: 3, image: BaysideSportsImg, title: "Pixel Portfolio" },
-        { id: 4, image: BaysideSportsImg, title: "Artisan Avenue" },
+        { id: 1, image: BaysideSportsImg, title: "Bayside Sports", slug: "projects/tech/bayside-sports" },
+        { id: 2, image: FluxuriousTechImg, title: "Fluxurous Tech", slug: "projects/tech/fluxurous-tech" },
+        { id: 3, image: RAEImg, title: "Research Assistant", slug: "projects/tech/rae" },
+        { id: 4, image: BaysideSportsImg, title: "Studex", slug: "projects/tech/studex" },
+        { id: 5, image: AarohanImg, title: "Aarohan", slug: "projects/tech/aarohan" },
+        { id: 6, image: JobsifyImg, title: "Jobsify", slug: "projects/tech/jobsify" },
+        { id: 7, image: FaceTransformImg, title: "Face Transform", slug: "projects/tech/face-transform" },
+        { id: 8, image: B4USchoolsImg, title: "B4U Schools", slug: "projects/tech/b4u-schools" },
     ];
 
     return (
         <div id="example" className="bg-black relative mb-0">
             {/* Vertical Lines Background Pattern */}
-            <div className="absolute inset-0 opacity-40">
+            <div className="absolute inset-0 opacity-40 pointer-events-none -z-10">
                 <div
                     className="h-full w-full"
                     style={{
@@ -140,7 +161,7 @@ const Projects = () => {
             </div>
 
             {/* Header Section */}
-            <div className="text-center py-20 relative z-10">
+            <div className="text-center py-20 relative z-10" style={{ position: 'relative' }}>
                 <h1
                     className="inline-block text-5xl lg:text-6xl font-medium mb-4"
                     style={{
@@ -157,13 +178,14 @@ const Projects = () => {
                 <p className="text-white text-lg lg:text-xl">Some Subtitle</p>
             </div>
 
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 relative z-10" style={{ position: 'relative' }}>
               {projects.map((project, idx) => (
                 <Image
                   key={project.id}
                   id={project.id}
                   image={project.image}
                   title={project.title}
+                  slug={project.slug}
                   isLast={idx === projects.length - 1}
                 />
               ))}

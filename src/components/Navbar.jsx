@@ -13,9 +13,20 @@ const Navbar = () => {
     window.scrollTo(0, 0);
   };
 
-  // Scroll to top when location changes
+  // Handle navigation scroll behavior
   useEffect(() => {
-    scrollToTop();
+    if (location.hash === '#contact-me-section') {
+      const scrollToContact = () => {
+        const el = document.getElementById('contact-me-section');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+      // Wait a tick to ensure Home and section are rendered
+      setTimeout(scrollToContact, 100);
+    } else {
+      scrollToTop();
+    }
   }, [location]);
 
   return (
@@ -148,10 +159,9 @@ const Navbar = () => {
                 EXPERIENCES
               </Link>
               <Link
-                to="/contact"
+                to="/#contact-me-section"
                 onClick={() => {
                   toggleMenu();
-                  scrollToTop();
                 }}
                 className="block text-2xl font-semibold text-gray-800 hover:text-purple-600 transition-colors"
               >
