@@ -10,10 +10,11 @@ import A5 from "../../../assets/5Aarohan/Aarohan5.png";
 import A6 from "../../../assets/5Aarohan/Aarohan6.png";
 import ApproachImg from "../../../assets/5Aarohan/Approach.png";
 import ResultsImg from "../../../assets/Projects/Aarohan.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer";
 
 const BaysideSports = () => {
+  const navigate = useNavigate();
   // ---------- EDIT THESE ----------
   const images = [
     { src: A1, alt: "Aarohan 1" },
@@ -86,12 +87,12 @@ const BaysideSports = () => {
 
         {/* Back link (optional) */}
         <div className="mb-4">
-          <a
-            href="/projects"
+          <button
+            onClick={() => navigate(-1)}
             className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-sm text-white/90 hover:bg-white/10"
           >
             ← Go back to Projects
-          </a>
+          </button>
         </div>
 
         {/* HERO: laptop-style frame + pedestal with carousel */}

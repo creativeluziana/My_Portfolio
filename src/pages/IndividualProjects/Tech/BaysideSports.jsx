@@ -10,10 +10,11 @@ import Bayside5 from "../../../assets/1Bayside_Sports/Bayside5.png";
 import Bayside6 from "../../../assets/1Bayside_Sports/Bayside6.png";
 import ApproachImg from "../../../assets/1Bayside_Sports/Approach.png";
 import ResultsImg from "../../../assets/Projects/Bayside_Sports.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer";
 
 const BaysideSports = () => {
+  const navigate = useNavigate();
   // ---------- EDIT THESE ----------
   const images = [
     { src: Bayside1, alt: "Bayside Sports Mockup" }, // 1
@@ -91,12 +92,12 @@ const BaysideSports = () => {
 
         {/* Back link (optional) */}
         <div className="mb-4">
-          <a
-            href="/projects"
+          <button
+            onClick={() => navigate(-1)}
             className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-sm text-white/90 hover:bg-white/10"
           >
             ← Go back to Projects
-          </a>
+          </button>
         </div>
 
         {/* HERO: laptop-style frame + pedestal with carousel */}

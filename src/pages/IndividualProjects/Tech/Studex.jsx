@@ -6,10 +6,11 @@ import Studex1 from "../../../assets/3Studex/Studex1.png";
 import Studex2 from "../../../assets/3Studex/Studex2.png";
 import ApproachImg from "../../../assets/3Studex/Approach.png";
 import ResultsImg from "../../../assets/Projects/Studex.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer";
 
 const Studex = () => {
+  const navigate = useNavigate();
   // Slides
   const images = [
     { src: Studex1, alt: "Studex 1" },
@@ -84,7 +85,7 @@ const Studex = () => {
 
         {/* Go back */}
         <div className="mb-4">
-          <a href="/projects" className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-sm text-white/90 hover:bg-white/10">← Go back to Projects</a>
+          <button onClick={() => navigate(-1)} className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-sm text-white/90 hover:bg-white/10">← Go back to Projects</button>
         </div>
 
         {/* Carousel */}

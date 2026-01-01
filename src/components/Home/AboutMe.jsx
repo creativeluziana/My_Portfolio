@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LuzianaImg from '../../assets/Luziana_Dmello.png';
+import LuzianaImg from '../../assets/LuzianaDmello.jpeg';
 
 const AboutMe = () => {
   const [currentText, setCurrentText] = useState('');

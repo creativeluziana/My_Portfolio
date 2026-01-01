@@ -10,10 +10,11 @@ import Flux5 from "../../../assets/2FluxuriousTech/Flux5.png";
 import Flux6 from "../../../assets/2FluxuriousTech/Flux6.png";
 import ApproachImg from "../../../assets/1Bayside_Sports/Approach.png";
 import ResultsImg from "../../../assets/Projects/Fluxurious_Tech.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer";
 
 const BaysideSports = () => {
+  const navigate = useNavigate();
   // ---------- EDIT THESE ----------
   const images = [
     { src: Flux1, alt: "Fluxurious Tech 1" },
@@ -89,12 +90,12 @@ const BaysideSports = () => {
 
         {/* Back link (optional) */}
         <div className="mb-4">
-          <a
-            href="/projects"
+          <button
+            onClick={() => navigate(-1)}
             className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-sm text-white/90 hover:bg-white/10"
           >
             ← Go back to Projects
-          </a>
+          </button>
         </div>
 
         {/* HERO: laptop-style frame + pedestal with carousel */}

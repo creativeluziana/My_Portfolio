@@ -186,7 +186,7 @@ const Projects = () => {
                 >
                     My Projects
                 </h1>
-                <p className="text-white text-lg lg:text-xl">Some Subtitle</p>
+                <p className="text-white text-lg lg:text-xl">Websites and Apps I've worked on</p>
             </div>
 
             <div className="flex flex-col gap-8 relative z-10" style={{ position: 'relative' }}>

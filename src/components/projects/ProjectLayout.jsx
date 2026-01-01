@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const ProjectLayout = ({ title, subtitle = 'Case study', coverImage, children, showHero = true, fullWidth = false, showBack = true, contentPadding = 'py-12', contentGap = 'space-y-16' }) => {
+  const navigate = useNavigate();
   const { scrollY } = useScroll({ layoutEffect: false });
   const y = useTransform(scrollY, [0, 600], [0, -80]);
   const blur = useTransform(scrollY, [0, 600], ['0px', '8px']);
@@ -13,12 +14,12 @@ const ProjectLayout = ({ title, subtitle = 'Case study', coverImage, children, s
       {/* Back pill - desktop */}
       {showBack && (
         <div className="hidden md:block fixed top-6 left-6 z-50">
-          <Link
-            to="/projects"
+          <button
+            onClick={() => navigate(-1)}
             className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white transition-colors"
           >
             ← Back to Projects
-          </Link>
+          </button>
         </div>
       )}
 
@@ -58,12 +59,12 @@ const ProjectLayout = ({ title, subtitle = 'Case study', coverImage, children, s
       {/* Back pill - mobile */}
       {showBack && (
         <div className="md:hidden px-6 pt-4">
-          <Link
-            to="/projects"
+          <button
+            onClick={() => navigate(-1)}
             className="inline-block px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white transition-colors"
           >
             ← Back to Projects
-          </Link>
+          </button>
         </div>
       )}
 

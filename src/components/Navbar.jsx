@@ -87,7 +87,7 @@ const Navbar = () => {
 
                 {/* View Resume Button */}
                 <a
-                  href="/Luziana%20DMello's%20CV.pdf"
+                  href="/Luziana_Dmello_1022135_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 bg-black text-white py-2 px-4 rounded-full font-semibold hover:bg-gray-800 transition-all duration-300 flex items-center justify-center space-x-1 text-sm"
